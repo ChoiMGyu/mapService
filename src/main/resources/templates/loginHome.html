@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class="container position-relative p-0">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader()}"></div>
+    <div th:replace="~{fragments/bodyAlert :: bodyAlert(${message})}"></div>
+    <div class="jumbotron bg-light p-5 rounded text-center">
+        <h1 class="display-4">YU Map</h1>
+        <p class="lead my-4">영남대 길찾기 서비스에 오신걸 환영합니다!</p>
+        <hr class="my-4">
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-primary" type="button" onclick="location.href='/map/path'">영남대 길찾기</button>
+            <button class="btn btn-primary" type="button" onclick="location.href='/service2/enter'">실시간 길찾기</button>
+        </div>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"/>
+</div> <!-- /container -->
+</body>
+</html>

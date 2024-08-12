@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}"/>
+<body>
+<div class="container position-relative p-0">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader()}"></div>
+    <div th:replace="~{fragments/bodyAlert :: bodyAlert(${message})}"></div>
+    <div class="header p-5 bg-body-tertiary rounded-3">
+        <div class="text-center">
+            <h2 class="text-body-emphasis mb-3">나의 프로필</h2>
+            <table class="table rounded-top-3 overflow-hidden">
+                <tr>
+                    <td>아이디</td>
+                    <td class="text-end" th:text="${memberForm.userId}"></td>
+                    <td></td>
+                </tr>
+                <tbody>
+                <tr>
+                    <td>닉네임</td>
+                    <!--<td class="text-end" th:text="${memberForm.nickname}"></td>-->
+                    <form id="nicknameForm" role="form" action="/members/updateNickname" th:object="${nicknameForm}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <td style="width: 57%;">
+                        <div class="form-group">
+                            <div class="input-group-sm">
+                                <input style="text-align: right; font-size: 1rem" id="nickname" type="text"
+                                       th:field="*{nickname}"
+                                       class="form-control" placeholder="닉네임을 입력하세요."
+                                       aria-label="닉네임을 입력하세요" aria-describedby="nickname check"
+                                       th:class="${#fields.hasErrors('nickname')} ? 'form-control fieldError' : 'form-control'">
+                            </div>
+                            <div style="width: 100%">
+                            <small style="margin: 0; font-size: 14px;" id="userIdError" th:if="${#fields.hasErrors('nickname')}"
+                               th:errors="*{nickname}" class="text-start text-danger">
+                                Incorrect date</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-end">
+                        <button id="numberSend" class="btn btn-outline-secondary btn-sm rounded-pill w-75" type="submit">닉네임 변경
+                        </button>
+                    </td>
+                    </form>
+                </tr>
+                <tr>
+                    <td>이메일</td>
+                    <td class="text-end" th:text="${memberForm.email}"></td>
+                    <td class="text-end">
+                        <a th:if="${!memberForm.userId.contains('_')}"  class="btn btn-outline-secondary btn-sm rounded-pill w-75" href="/members/updateEmail">
+                            이메일 변경
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>비밀번호</td>
+                    <td></td>
+                    <td class="text-end">
+                        <button th:if="${!memberForm.userId.contains('_')}" class="btn btn-outline-secondary btn-sm rounded-pill w-75" type="button"
+                                onclick="location.href='updatePassword'">
+                            비밀번호 변경
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <a href="/members/leave" style="color: var(--bs-tertiary-color); text-decoration-line: none;">회원 탈퇴 ></a>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"/>
+</div> <!-- /container -->
+</body>
+</html>

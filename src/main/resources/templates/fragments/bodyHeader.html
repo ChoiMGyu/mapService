@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ko">
+<header class="header m-0 p-0" style="margin: 0;" th:fragment="bodyHeader()">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <section id="navbarWebSiteNameSection">
+                <a class="navbar-brand fs-3 text-muted" href="/">MAP Application</a>
+            </section>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <section id="notificationSection" class="text-end">
+<!--                <input type="hidden" id="_csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+                <th:block sec:authorize="isAuthenticated()"><!--th:if="${session.loginMember != null}">-->
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <div class="container-fluid">
+                            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                                <ul class="navbar-nav ms-auto">
+                                    <li class="nav-item">
+                                        <a class="navbar-brand" href="#" th:text="|${#authentication.getPrincipal().getMember().getNickname()}님|"></a>
+                                    </li>
+                                </ul>
+                                <ul class="navbar-nav ms-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link btn btn-lg btn-secondary" href="/members/myProfile">내 프로필</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link btn btn-lg btn-secondary" href="/members/logout" onclick="logout()">로그아웃</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- 버튼 추가 -->
+                            <button class="btn btn-secondary position-relative bg-transparent border-0 p-0"
+                                    data-bs-toggle="dropdown" aria-expanded="false"
+                                    onclick="changeAllReadTypeToReadByUserId($('#headerUserId').attr('value'))">🔔
+                                <span class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-1"
+                                      id="newNotifications" style="display: none"></span>
+                            </button>
+                            <!-- 리스트 추가 -->
+                            <div class="list-group">
+                                <ul id="notifications" class="dropdown-menu dropdown-menu-end p-0">
+                                    <li id="defaultNotification" class="list-group-item list-group-item-action" value="READ">알림이 없습니다.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <div id="headerUserId" th:value="${#authentication.getPrincipal().getMember().getNickname()}"></div>
+                </th:block>
+            </section>
+        </div>
+    </nav>
+
+    <th:block sec:authorize="isAuthenticated()">
+        <script type="text/javascript" src="/js/bodyHeader.js"></script>
+        <script type="text/javascript">
+            function logout() {
+                console.log("logout 버튼 클릭됨");
+                // const csrfToken = document.getElementById('_csrf').value;
+                fetch('/members/logout', {
+                    method: 'POST',
+                    /*headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRF-TOKEN': csrfToken // CSRF 토큰 추가
+                    },*/
+                    body: ''
+                }).then(response =>
+                    response.redirected ? window.location.href = response.url : response.json()
+                ).then(data => {
+                    console.log(data);
+                    if(data.message) bodyAlert(data.message);
+                });
+            }
+        </script>
+    </th:block>
+    <script type="text/javascript" src="/js/bootstrap.bundle.js"></script>
+</header>

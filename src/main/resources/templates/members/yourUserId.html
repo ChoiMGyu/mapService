@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}"/>
+<body>
+<div class="container">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader()}"></div>
+    <div class="d-flex justify-content-center">
+        <p class="mb-3" th:text="'회원님의 아이디는 '+${userId}+' 입니다.'"></p>
+    </div>
+    <div class="d-flex justify-content-center">
+        <button style="margin-right: 10px;" class="btn btn-outline-primary mb-3" type="submit" onclick="location.href='/members/loginForm'">로그인 하러 가기</button>
+        <button class="btn btn-outline-primary mb-3" type="submit" onclick="location.href='/members/findPassword'">비밀번호 찾기</button>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"/>
+</div> <!-- /container -->
+</body>
+</html>

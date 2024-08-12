@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}"/>
+<body>
+<div class="container">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader()}"></div>
+    <div class="d-flex flex-column mb-3" style="height:100%; overflow-y: scroll;">
+        <h4 class="mb-3">탈퇴 안내</h4>
+        <div class="card" style="width: 100%; height:200px; overflow-y: scroll;">
+            <div class="card-body">
+                <h5 class="card-title">탈퇴 후 회원정보 및 개인형 서비스 이용기록은 모두 삭제됩니다.</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+            </div>
+        </div>
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" value="N" id="check1">
+            <span style="color: #0d6efd">[필수]</span>
+            <label class="form-check-label" for="check1">
+                확인했습니다.
+            </label>
+        </div>
+        <br>
+    </div>
+    <div class="d-flex justify-content-end">
+    <button id="submit" class="btn btn-primary" type="submit">탈퇴</button>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"/>
+</div> <!-- /container -->
+</body>
+<script th:inline="javascript" type="text/javascript">
+    $('#submit').on('click', function () {
+        if($('#check1').val()=='N') {
+            alert("모든 사항을 모두 확인해 주세요.");
+            return false;
+        }
+        let form = document.createElement("form");
+        form.name = "leave";
+        form.action = "/members/leave";
+        form.method = "post";
+        form.style.display = 'none';
+        let input = document.createElement("input");
+        input.value = [[${_csrf.token}]];
+        input.name = [[${_csrf.parameterName}]];
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    });
+    $('#check1').on('click', function () {
+        if($('#check1').val()=='N') $('#check1').attr("value", "Y");
+        else $('#check1').attr("value", "N");
+    })
+</script>
+</html>

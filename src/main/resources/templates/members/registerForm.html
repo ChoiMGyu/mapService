@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}"/>
+<!--<meta name="csrf-token" content="{{#_csrf}}token{{/_csrf}}">-->
+<body>
+<div class="container position-relative p-0">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader()}"></div>
+    <div th:replace="~{fragments/bodyAlert :: bodyAlert(${message})}"></div>
+    <!--        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+    <div class="form-group">
+        <div class="input-group">
+            <label class="input-group-text w-25" th:for="userId">아이디</label>
+            <input id="userId" name="userId" type="text" class="form-control" placeholder="아이디를 입력하세요." aria-label="아이디를 입력하세요" aria-describedby="id check" onchange="checkUserId(this.value)">
+        </div>
+        <small class="text-danger" style="margin: 0; display:none;" id="userIdError"></small>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+            <label class="input-group-text w-25" th:for="nickname">닉네임</label>
+            <input id="nickname" name="nickname" type="text" class="form-control" placeholder="닉네임을 입력하세요." aria-label="닉네임을 입력하세요" aria-describedby="nickname check" onchange="checkNickname(this.value)">
+        </div>
+        <small class="text-danger" style="margin: 0; display:none;" id="nicknameError"></small>
+    </div>
+    <div class="form-group mb-1">
+        <div class="input-group">
+            <label class="input-group-text w-25" th:for="email">이메일</label>
+            <input id="email" type="text" name="email" class="form-control" placeholder="이메일을 입력하세요." aria-label="이메일을 입력하세요" aria-describedby="email check" onchange="checkEmail(this.value)">
+        </div>
+        <small class="text-danger" style="margin: 0; display:none;" id="emailError"></small>
+    </div>
+    <div class="form-group last mb-4 check_input">
+        <div class="input-group">
+            <label class="input-group-text w-25" for="emailNumber" id="emailNumberTxt">인증번호</label>
+            <input type="text" class="form-control" id="emailNumber" name="emailNumber" placeholder="인증번호를 입력하세요." disabled>
+            <span class="input-group-text" id="time"></span>
+            <button id="numberCheck" name="numberCheck" class="btn btn-outline-primary" type="button" onclick="emailNumberChk();" disabled>인증번호 확인
+            </button>
+            <button id="numberSend" name="numberSend" class="btn btn-outline-primary" type="button" onclick="emailNumberSend();" disabled>인증번호 발급
+            </button>
+        </div>
+        <small class="text-danger" style="margin: 0; display:none;" id="verificationCodeError"></small>
+        <input id="timeCount" name="timeCount" type="number" style="display: none">
+    </div>
+    <div class="form-group input-group">
+        <label class="input-group-text w-25" th:for="password">비밀번호</label>
+        <input id="password"name="password" type="password" class="form-control" placeholder="비밀번호를 입력하세요."
+               aria-label="비밀번호를 입력하세요" aria-describedby="password" onchange="checkPassword(this.value)">
+    </div>
+    <small class="text-danger" style="margin: 0; display:none;" id="passwordError"></small>
+    <div class="form-group input-group">
+        <label id="passwordConfirmTxt" class="input-group-text w-25" th:for="passwordConfirm">비밀번호 확인</label>
+        <input id="passwordConfirm" name="passwordConfirm" type="password" class="form-control"
+               placeholder="비밀번호를 다시 입력하세요."
+               aria-label="비밀번호를 다시 입력하세요" aria-describedby="password check" onchange="checkPassword(this.value)">
+    </div>
+    <small class="text-danger" style="margin: 0; display:none;" id="passwordConfirmError"></small>
+    <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary" id="registerSubmit" name="registerSubmit" disabled onclick="checkRegister();">회원 가입</button>
+    </div>
+    <br/>
+    <div th:replace="~{fragments/footer :: footer}"/>
+</div> <!-- /container -->
+</body>
+<script type="text/javascript" src="/js/members.js"></script>
+<script type="text/javascript" src="/js/register.js"></script>
+</html>

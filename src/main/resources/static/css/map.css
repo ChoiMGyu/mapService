@@ -1,0 +1,47 @@
+/* bodyAlert가 offcanvas보다 높은 z-index를 갖도록 설정 */
+.bodyAlert {
+    z-index: 1050; /* offcanvas의 z-index보다 높아야 합니다 */
+    position: absolute; /* 필요한 위치 조정을 위해 */
+    top: 50px; /* offcanvas 상단으로부터의 간격 */
+    right: 50px; /* 페이지 오른쪽으로부터의 간격 */
+    width: auto; /* 필요에 따라 조정 */
+}
+
+.service2CustomOverlay
+{
+    position: relative;
+    top: -0.6rem;
+}
+
+.service2CustomOverlay:after
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0.6rem 0.6rem 0;
+    border-bottom-color: inherit;
+    border-top-color: inherit;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    display: block;
+    width: 0;
+    z-index: inherit;
+    bottom: -0.55rem;
+    left: 50%;
+    margin-left: -0.6rem;
+}
+
+.offcanvas-body {
+    overflow-y: scroll;
+}
+
+/* 크롬, 사파리, 오페라 기준 */
+.offcanvas-body::-webkit-scrollbar {
+    display: none;
+}
+
+/* 파이어폭스, 익스플로러, 엣지 */
+.offcanvas-body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}

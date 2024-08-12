@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container position-relative p-0 my-5">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader()}"></div>
+    <div th:replace="~{fragments/bodyAlert :: bodyAlert(${message})}"></div>
+    <div class="jumbotron bg-light p-5 rounded text-center">
+        <h1 class="display-4">YU Map</h1>
+        <p class="lead my-4">영남대 길찾기 서비스에 오신걸 환영합니다!</p>
+        <hr class="my-4">
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <a class="btn btn-primary" href="/map/path">영남대 길찾기</a>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">더 많은 기능을 사용하고 싶다면?</a>
+            <div class="navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-lg btn-secondary" href="/members/agree">회원 가입</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-lg btn-secondary"
+                           th:href="@{/members/loginForm}">로그인</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div> <!-- /container -->
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}"/>
+<body>
+<div class="container position-relative p-0">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader()}"></div>
+    <div th:replace="~{fragments/bodyAlert :: bodyAlert(${message})}"></div>
+    <form id="submitForm" role="form" action="/members/updateEmail" th:object="${submitForm}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <div class="form-group mb-3">
+            <div class="input-group">
+                <label class="input-group-text w-25" th:for="email">이메일</label>
+                <input id="email" type="text" th:field="*{email}" class="form-control" placeholder="이메일을 입력하세요"
+                       aria-label="이메일을 입력하세요" aria-describedby="email check"
+                       th:class="${#fields.hasErrors('email')}? 'form-control fieldError' : 'form-control'">
+                <button class="btn btn-outline-primary" type="button" id="Chk" onclick="emailChk();" value="Y">이메일 중복 확인
+                </button>
+            </div>
+            <small id="thEmailError" class="text-danger" style="margin: 0" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect
+                date</small>
+            <small class="text-danger" style="margin: 0; display:none;" id="emailError"></small>
+            <input id="emailCheck" th:field="*{emailCheck}" type="checkbox" th:value="${session.submitForm.emailCheck}" style="display: none">
+        </div>
+        <div class="form-group last mb-4 check_input">
+            <div class="input-group">
+                <label class="input-group-text w-25" for="emailNumber" id="emailconfirmTxt">인증번호</label>
+                <input type="text" class="form-control" id="emailNumber" th:field="*{emailNumber}" placeholder="인증번호를 입력하세요">
+                <span class="input-group-text" id="time"></span>
+                <button id="numberCheck" class="btn btn-outline-primary" type="submit">인증번호 확인</button>
+                <button id="numberSend" class="btn btn-outline-primary" type="button" onclick="checkEmail('이메일 확인을 해주세요.');"
+                        value="N">인증번호 발급
+                </button>
+            </div>
+            <small id="thEmailNumberError" class="text-danger" style="margin: 0" th:if="${#fields.hasErrors('emailNumber')}" th:errors="*{emailNumber}">Incorrect
+                date</small>
+            <small class="text-danger" style="margin: 0; display:none;" id="emailNumberError"></small>
+            <input id="timeCount" th:field="*{timeCount}" type="number" th:value="${session.submitForm.timeCount}" style="display: none">
+            <input id="emailNumberSend" th:field="*{emailNumberSend}" type="checkbox" th:value="${session.submitForm.emailNumberSend}" style="display: none">
+            <input id="emailNumberCheck" th:field="*{emailNumberCheck}" type="checkbox" th:value="${session.submitForm.emailNumberCheck}" style="display: none">
+        </div>
+    </form>
+    <br/>
+    <div th:replace="~{fragments/footer :: footer}"/>
+</div> <!-- /container -->
+</body>
+<script type="text/javascript" src="/js/members.js"></script>
+<script type="text/javascript" src="/js/updateEmail.js"></script>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<section id="bodyAlertSection" class="position-absolute w-100" th:fragment="bodyAlert(message)"
+         style="position: absolute; z-index: 1100">
+    <div id="errorAlert" th:if="${message}" class="alert alert-info alert-dismissible fade show w-100 m-2" role="alert"
+         style="opacity: 97%; position: absolute; z-index: 1100;">
+        <span class="text-start fs-6" th:text="${message}">수정 완료</span>
+        <button type="button" class="btn-close messageBtn" data-dismiss="modal" aria-label="Close"
+                onclick="$('#errorAlert').remove();"></button>
+    </div>
+    <script type="text/javascript" src="/js/messages.js"></script>
+</section>
